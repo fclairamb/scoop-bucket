@@ -1,0 +1,26 @@
+{
+    "version": "0.36.0",
+    "description": "Self-hostable uptime monitoring: 40 check types, multi-region, status pages",
+    "homepage": "https://solidping.io",
+    "license": "AGPL-3.0-only",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/fclairamb/solidping/releases/download/v0.36.0/solidping-windows-amd64.zip",
+            "hash": "6bc07a64d652987b17539e845df33845a5f001bdce5c4a4787d09549764fd669"
+        }
+    },
+    "bin": "solidping.exe",
+    "checkver": {
+        "github": "https://github.com/fclairamb/solidping"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/fclairamb/solidping/releases/download/v$version/solidping-windows-amd64.zip"
+            }
+        },
+        "hash": {
+            "url": "https://github.com/fclairamb/solidping/releases/download/v$version/solidping-checksums.txt"
+        }
+    }
+}
