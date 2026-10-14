@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Manifests are valid JSON with the required fields
+        run: |
+          python3 - <<'PY'
+          import glob, json
+          files = glob.glob("bucket/*.json")
+          assert files, "no manifest found"
+          for f in files:
+              m = json.load(open(f))
+              for k in ("version", "description", "homepage", "license"):
+                  assert k in m, f"{f}: missing {k}"
+              print("ok", f, m["version"])
+          PY
+      - name: Bump script compiles
+        run: python3 -m py_compile .github/bump.py
