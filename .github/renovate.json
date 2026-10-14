@@ -1,0 +1,43 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "prConcurrentLimit": 1,
+  "packageRules": [
+    {
+      "description": "Minor/patch: automerge with squash once CI passes. Renovate merges itself (platformAutomerge off): this repo has no required checks, so GitHub's native auto-merge would merge before CI finishes.",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "addLabels": [
+        "deps"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "platformAutomerge": false
+    },
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "github-actions (non-major)"
+    },
+    {
+      "description": "Major updates: no automerge",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "addLabels": [
+        "deps"
+      ],
+      "automerge": false
+    }
+  ]
+}
